@@ -27,13 +27,19 @@
 			}
 		</style>
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="app-layout.js"></script>
+		<script type="text/javascript" src="vue-component.js"></script>
 	</head>
 	<body>
-		<div id="app">
-			<countable-input base-class="input-txt" clear-class="clear" count-class="count" v-model="text" max-length="10"></countable-input>
-      	</div>
+		<app-layout id="app">
+		  <h1 slot="header">여기에 페이지 제목이 위치합니다</h1>
+		
+		  <p>{{ message }}</p>
+		  <countable-input base-class="input-txt" clear-class="clear" count-class="count" v-model="text" max-length="10"></countable-input>
+		
+		  <p slot="footer">여기에 연락처 정보입니다.</p>
+		</app-layout>
 	</body>
-	<script type="text/javascript" src="vue-component.js"></script>
 	<script type="text/javascript">
         new Vue({
           el: '#app',
