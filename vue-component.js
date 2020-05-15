@@ -1,15 +1,17 @@
 Vue.component('countable-input', {
   inheritAttrs: false,
-  props: ['value', 'max-length', 'base-class', 'count-class', 'clear-class'],
+  props: ['value', 'max-length', 'base-class', 'focused-class', 'count-class', 'clear-class'],
   data: function () {
     return {
       hasFocus: false
     }
   },
   computed: {
-    count: function() {
-      return this.byteLength(this.value);
-  },
+    baseClassObject: function () {
+      var focusedClass = {};
+      focusedClass[this.focusedClass] = this.hasFocus;
+      return [this.baseClass, focusedClass]
+    },
     inputListeners: function () {
       var vm = this
       // `Object.assign` merges objects together to form a new object
@@ -39,6 +41,9 @@ Vue.component('countable-input', {
           }
         }
       )
+    },
+    count: function() {
+      return this.byteLength(this.value);
     }
   },
   methods: {
@@ -55,17 +60,18 @@ Vue.component('countable-input', {
     }
   },
   template: `
-    <div :class="baseClass">
+    <div v-bind:class="baseClassObject">
       <input
-        v-bind="$attrs"
-        v-bind:value="value"
-        v-on="inputListeners"
-        v-on:focus="hasFocus = true"
-        v-on:blur="hasFocus = false"
-        ref="input"
-      >
-      <span :class="countClass">{{ count }}/{{ maxLength }}</span>
-      <button :class="clearClass" @mousedown="clear" v-show="hasFocus && value.length > 0">X</button>
+          v-bind="$attrs"
+          v-bind:value="value"
+          v-on="inputListeners"
+          v-on:focus="hasFocus = true"
+          v-on:blur="hasFocus = false"
+          ref="input"
+      />
+      <span v-bind:class="countClass">{{ count }}/{{ maxLength }}</span>
+      <button v-bind:class="clearClass"
+          @mousedown="clear" v-show="hasFocus && value.length > 0">X</button>
     </div>
     `
 });
