@@ -1,55 +1,57 @@
 <html>
-	<head>
-		<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"></meta>
-		<style>
-			//div, input, span, button { border: 1px solid red; }
-			.input-txt {
-				position: relative;
-				border: solid;
-			}
-			.input-txt input {
-				position: relative;
-				width: 100%;
-				padding-right: 60px;
-			}
-			.input-txt .count {
-				position: absolute;
-				top: 0; right: 0;
-				width: 40px; height: 100%;
-				text-align: right;
-				padding-right: 5px;
-			}
-			.input-txt .clear {
-				position: absolute;
-				top: 0; right: 40px;
-				width: 20px; height: 100%;
-				border: none;
-			}
-		</style>
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<script type="text/javascript" src="app-layout.js"></script>
-		<script type="text/javascript" src="vue-component.js"></script>
-	</head>
-	<body>
-		<app-layout id="app">
-		  <h1 slot="header">여기에 페이지 제목이 위치합니다</h1>
-		
-		  <p>{{ message }}</p>
-		  <countable-input base-class="input-txt" clear-class="clear" count-class="count" v-model="text" max-length="10"></countable-input>
-		
-		  <p slot="footer">여기에 연락처 정보입니다.</p>
-		</app-layout>
-	</body>
-	<script type="text/javascript">
-        new Vue({
-          el: '#app',
-          data:{
-          	text: '',
-            message : 'Hello Vue.js!'
-          },
-          created: function() {
-          	console.log('created.');
-          }
-        });
-     </script>
+  <head>
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"></meta>
+    <style>
+      //div, input, span, button { border: 1px solid red; }
+      .input-txt {
+        position: relative;
+        border: solid;
+      }
+      .input-txt input {
+        position: relative;
+        width: 100%;
+        padding-right: 60px;
+      }
+      .input-txt .count {
+        position: absolute;
+        top: 0; right: 0;
+        width: 40px; height: 100%;
+        text-align: right;
+        padding-right: 5px;
+      }
+      .input-txt .clear {
+        position: absolute;
+        top: 0; right: 40px;
+        width: 20px; height: 100%;
+        border: none;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="app-layout.js"></script>
+    <script type="text/javascript" src="vue-component.js"></script>
+  </head>
+  <body>
+    <app-layout id="app">
+      <h1 slot="header">여기에 페이지 제목이 위치합니다</h1>
+
+      <p>{{ message }}</p>
+      <countable-input id="id" base-class="input-txt" clear-class="clear" count-class="count" v-model="userId" max-length="10"></countable-input>
+      <countable-input id="password" base-class="input-txt" clear-class="clear" count-class="count" v-model="userPassword" max-length="10"></countable-input>
+
+      <p slot="footer">여기에 연락처 정보입니다.</p>
+    </app-layout>
+  </body>
+  <script type="text/javascript">
+    var app = new Vue({
+      el: '#app',
+      data:{
+      	userId: '',
+      	userPassword: '',
+        message : 'Hello Vue.js!'
+      },
+      created: function() {
+      	console.log('created.');
+      }
+    });
+  </script>
 </html>
