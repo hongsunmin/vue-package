@@ -5,6 +5,7 @@
     <title>Vue Component Page</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/log.js"></script>
     <script src="app-layout.js"></script>
     <script src="vue-component.js"></script>
   </head>
@@ -46,15 +47,24 @@
         	userPassword: '',
           message : 'Hello Vue.js!'
         },
-        created: function() {
-        	console.log('created.');
+        created: function () {
+        	log('');
+        },
+        mounted: function () {
+          log('');
+        },
+        beforeUpdate: function () {
+          log('');
+        },
+        updated: function () {
+          log('');
         },
         methods: {
           openPopup: function () {
             this.$refs.popup.open();
           },
           popupClicked: function (event, slotName) {
-            console.log(JSON.stringify(event.target) + ' ' + slotName);
+            log(JSON.stringify(event.target) + ' ' + slotName);
             this.$refs.popup.close();
           }
         }

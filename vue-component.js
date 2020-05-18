@@ -48,7 +48,7 @@ Vue.component('countable-input', {
   },
   methods: {
     clear: function() {
-      console.log('clear button clicked.');
+      log('clear button clicked.');
       this.$emit('input', '');
     },
     byteLength: function(s) {
@@ -113,6 +113,12 @@ Vue.component('popup-layout', {
     return {
       visible: false
     }
+  },
+  beforeUpdate: function () {
+    log('');
+  },
+  updated: function () {
+    log('');
   },
   methods: {
     open: function () {
