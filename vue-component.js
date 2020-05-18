@@ -101,3 +101,67 @@ Vue.component('countable-input', {
 }
 <countable-input base-class="input-txt" clear-class="clear" count-class="count" v-model="text" max-length="10"></countable-input>
  */
+
+/*
+ * Bottom 영역의 Slot간에 공백이나 줄바꿈이 들어가면
+ * findIndex에서 return 값의 변경이 발생한다.
+ */
+Vue.component('popup-layout', {
+  inheritAttrs: false,
+  props: ['popup-class', 'content-class', 'head-class', 'body-class', 'bottom-class'],
+  data: function () {
+    return {
+      visible: false
+    }
+  },
+  methods: {
+    open: function () {
+      this.visible = true;
+    },
+    close: function () {
+      this.visible = false;
+    },
+    popupClick: function (e) {
+      var slotName = undefined;
+      var targetIndex = this.findIndex(this.$refs.bottomContainer, e.target);
+      switch (targetIndex) {
+      case 0:
+        slotName = 'negative';
+        break;
+      case 1:
+        slotName = 'positive';
+        break;
+      }
+      this.$emit('click', e, slotName);
+    },
+    findIndex: function (parent, target) {
+      if (parent.hasChildNodes()) {
+        var children = parent.childNodes;
+        for (var i=0; i < children.length; i++) {
+          if (children[i].outerHTML === target.outerHTML) {
+            return i;
+          } else if (children[i].nodeType == 1) {
+            var idx = this.findIndex(children[i], target);
+            if (idx > -1) return i + idx;
+          }
+        }
+      }
+      return -1;
+    }
+  },
+  template: `
+    <div v-bind:class="popupClass" v-show="visible">
+      <div v-bind:class="contentClass">
+        <div v-bind:class="headClass">
+          <slot name="title"></slot>
+        </div>
+        <div v-bind:class="bodyClass">
+          <slot name="body"></slot>
+        </div>
+        <div v-bind:class="bottomClass" v-on:click="popupClick" ref="bottomContainer">
+          <slot name="negative"></slot><slot name="positive"></slot>
+        </div>
+      </div>
+    </div>
+    `
+});
