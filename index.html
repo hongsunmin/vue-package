@@ -4,7 +4,7 @@
     <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
     <title>Vue Component Page</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/vue.js"></script>
     <script src="js/log.js"></script>
     <script src="app-layout.js"></script>
     <script src="vue-component.js"></script>
@@ -18,6 +18,7 @@
           count-class="count" v-model="userId" max-length="10"></countable-input>
       <countable-input id="password" base-class="input-txt" focused-class="on" clear-class="clear"
           count-class="count" v-model="userPassword" max-length="10"></countable-input>
+      <check-input id="chk-onoff1" v-model="isUseBiometriryLogin" head-label="생체인식 로그인 사용여부"></countable-input>
 
       <button v-on:click="openPopup">팝업 열기</button>
 
@@ -45,6 +46,7 @@
         data:{
         	userId: '',
         	userPassword: '',
+        	isUseBiometriryLogin: false,
           message : 'Hello Vue.js!'
         },
         created: function () {

@@ -76,6 +76,49 @@ Vue.component('countable-input', {
     `
 });
 
+Vue.component('check-input', {
+  inheritAttrs: false,
+  props: ['value', 'head-label', 'title', 'id'],
+  computed: {
+    inputListeners: function () {
+      var vm = this
+      // `Object.assign` merges objects together to form a new object
+      return Object.assign({},
+        // We add all the listeners from the parent
+        this.$listeners,
+        // Then we can add custom listeners or override the
+        // behavior of some listeners.
+        {
+          // This ensures that the component works with v-model
+          input: function (event) {
+            var string = event.target.value;
+            var checked = event.target.checked;
+            vm.$emit('input', string);
+          }
+        }
+      )
+    }
+  },
+  template: `
+    <div class="wrap-section-inner">
+    	<span class="wrap-section-head">{{ headLabel }}</span>
+    	<div class="wrap-section-cnt">
+    		<div class="inp-switch">
+    			<input
+    			  type="checkbox"
+            v-bind="$attrs"
+            v-bind:value="value"
+    			  v-bind:id="id"
+    			  v-bind:title="title"
+            v-on="inputListeners"
+          />
+    			<label v-bind:for="id" class="slider round"></label>
+    		</div>
+    	</div>
+    </div>
+  `
+});
+
 /*
 .input-txt {
   position: relative;
